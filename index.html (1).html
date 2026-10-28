@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLens | Prime Duo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #04150d; /* Requested dark forest green */
+            color: #ffffff;
+            background-image: radial-gradient(circle at top right, rgba(0, 255, 102, 0.15), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(0, 255, 102, 0.1), transparent 40%);
+            min-height: 100vh;
+        }
+        /* Glassmorphism utility classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+        .neon-text {
+            color: #00ff66;
+            text-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+        }
+        .neon-border {
+            border-color: #00ff66;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+        }
+        .file-upload-wrapper:hover {
+            border-color: #00ff66;
+            background: rgba(0, 255, 102, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col items-center pb-20">
+
+    <!-- Header / Nav -->
+    <nav class="w-full max-w-6xl mx-auto p-6 flex justify-between items-center">
+        <div class="flex items-center gap-2 text-2xl font-bold">
+            <i class="ph-fill ph-leaf neon-text"></i>
+            <span>Eco<span class="neon-text">Lens</span></span>
+        </div>
+        <div class="text-sm font-bold border px-4 py-1.5 rounded-full bg-[#00ff66]/10 border-[#00ff66]/40 text-[#00ff66] shadow-[0_0_10px_rgba(0,255,102,0.2)]">
+            By Prime Duo
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="text-center mt-8 mb-12 px-4">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+            See the Waste. <br />
+            <span class="neon-text">Calculate the Cost.</span> <br />
+            Change the Outcome.
+        </h1>
+    </header>
+
+    <!-- Capabilities Section (4 Features) -->
+    <section class="w-full max-w-6xl mx-auto px-4 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="glass-panel p-6 rounded-2xl border-t-2 neon-border hover:-translate-y-1 transition-transform duration-300">
+                <i class="ph-fill ph-monitor-play text-3xl neon-text mb-4"></i>
+                <h3 class="text-lg font-bold text-white mb-2">Campus Vampire Power Spotter</h3>
+                <p class="text-sm text-gray-400">Detects standby equipment in empty labs and calculates wasted electricity per hour.</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl border-t-2 neon-border hover:-translate-y-1 transition-transform duration-300">
+                <i class="ph-fill ph-plug-charging text-3xl neon-text mb-4"></i>
+                <h3 class="text-lg font-bold text-white mb-2">Appliance Upgrade ROI Scanner</h3>
+                <p class="text-sm text-gray-400">Scans old spec stickers to calculate exact payback periods for 5-star upgrades.</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl border-t-2 neon-border hover:-translate-y-1 transition-transform duration-300">
+                <i class="ph-fill ph-receipt text-3xl neon-text mb-4"></i>
+                <h3 class="text-lg font-bold text-white mb-2">AI Electricity Bill Translator</h3>
+                <p class="text-sm text-gray-400">Extracts bill data to explain hidden charges and suggests slab-reduction tactics.</p>
+            </div>
+            <div class="glass-panel p-6 rounded-2xl border-t-2 neon-border hover:-translate-y-1 transition-transform duration-300">
+                <i class="ph-fill ph-game-controller text-3xl neon-text mb-4"></i>
+                <h3 class="text-lg font-bold text-white mb-2">Gaming PC Power Optimizer</h3>
+                <p class="text-sm text-gray-400">Analyzes gaming loads to recommend undervolting and frame caps for power savings.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="w-full max-w-3xl mx-auto px-4 mb-12">
+        <form id="upload-form" class="glass-panel rounded-3xl p-8">
+            <div class="file-upload-wrapper border-2 border-dashed border-gray-600 rounded-2xl p-10 text-center cursor-pointer transition-all duration-300 relative">
+                <input type="file" id="image-input" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" required />
+                <i class="ph-light ph-upload-simple text-5xl neon-text mb-4"></i>
+                <h3 class="text-xl font-semibold mb-2">Upload Image or Bill</h3>
+                <p class="text-gray-400 text-sm mb-4">JPG, PNG (Drag & Drop supported)</p>
+                <div id="fileNameDisplay" class="text-sm font-mono text-[#00ff66] font-semibold bg-[#00ff66]/10 border border-[#00ff66]/30 inline-block px-3 py-1 rounded hidden"></div>
+            </div>
+
+            <div class="mt-8 flex justify-center">
+                <button type="submit" id="submit-btn" class="bg-[#00ff66] hover:bg-[#00cc52] text-[#04150d] font-bold text-lg px-8 py-3 rounded-full transition-all shadow-[0_0_20px_rgba(0,255,102,0.4)] hover:shadow-[0_0_30px_rgba(0,255,102,0.6)] flex items-center gap-2">
+                    <i id="btn-icon" class="ph-bold ph-scan"></i> 
+                    <span id="btn-text">Run Energy Audit</span>
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Results Dashboard (Hidden) -->
+    <section id="results-dashboard" class="w-full max-w-6xl mx-auto px-4 hidden">
+        <div class="flex items-center gap-3 mb-8 border-b border-gray-700 pb-4">
+            <i class="ph-fill ph-chart-bar text-3xl neon-text"></i>
+            <h2 class="text-3xl font-bold">Audit Results</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Subject Card -->
+            <div class="glass-panel rounded-2xl p-6 lg:col-span-2 border-l-4 neon-border">
+                <p class="text-xs text-gray-400 uppercase tracking-widest font-bold mb-1">Detected Subject</p>
+                <h3 id="res-subject" class="text-2xl font-bold text-white mb-2">--</h3>
+                <span id="res-category" class="inline-block bg-[#00ff66]/10 text-[#00ff66] text-xs px-2 py-1 rounded border border-[#00ff66]/30">--</span>
+            </div>
+
+            <!-- Savings Card -->
+            <div class="glass-panel rounded-2xl p-6 bg-gradient-to-br from-[#00ff66]/20 to-transparent border border-[#00ff66]/30">
+                <p class="text-xs text-[#00ff66] uppercase tracking-widest font-bold mb-2">Estimated Savings</p>
+                <p id="res-savings" class="text-2xl font-bold text-white leading-tight">--</p>
+            </div>
+
+            <!-- Issue Card -->
+            <div class="glass-panel rounded-2xl p-6 lg:col-span-1 border border-gray-700/50">
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="ph-fill ph-warning-circle text-red-400 text-xl"></i>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Current Issue / Cost</p>
+                </div>
+                <p id="res-issue" class="text-gray-300 text-sm leading-relaxed">--</p>
+            </div>
+
+            <!-- Recommendation Card -->
+            <div class="glass-panel rounded-2xl p-6 lg:col-span-2 border border-gray-700/50 relative overflow-hidden">
+                <div class="absolute right-0 top-0 opacity-10 text-8xl -mt-4 -mr-4 pointer-events-none">
+                    <i class="ph-fill ph-lightbulb"></i>
+                </div>
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="ph-fill ph-check-circle text-[#00ff66] text-xl"></i>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Actionable Recommendation</p>
+                </div>
+                <p id="res-recommendation" class="text-white text-lg font-medium leading-relaxed relative z-10">--</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const uploadForm = document.getElementById('upload-form');
+        const imageInput = document.getElementById('image-input');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnIcon = document.getElementById('btn-icon');
+        const resultsDashboard = document.getElementById('results-dashboard');
+
+        // Display selected file name
+        imageInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileNameDisplay.textContent = e.target.files[0].name;
+                fileNameDisplay.classList.remove('hidden');
+            } else {
+                fileNameDisplay.classList.add('hidden');
+            }
+        });
+
+        // Handle form submission and API Fetch
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (imageInput.files.length === 0) return;
+
+            const file = imageInput.files[0];
+            const formData = new FormData();
+            formData.append('image', file);
+
+            // Hide previous results and set button to loading state
+            resultsDashboard.classList.add('hidden');
+            const originalText = btnText.innerText;
+            btnText.innerText = "Analyzing...";
+            btnIcon.classList.remove('ph-scan');
+            btnIcon.classList.add('ph-spinner', 'animate-spin');
+            submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+            submitBtn.disabled = true;
+
+            try {
+                // Change to your laptop's local IP (e.g., http://192.168.x.x:5000) if testing from a phone
+                const response = await fetch('http://127.0.0.1:5000/api/audit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // Populate the Results Dashboard elements
+                document.getElementById('res-category').textContent = data.category || "Unknown";
+                document.getElementById('res-subject').textContent = data.detected_subject || "Not detected";
+                document.getElementById('res-issue').textContent = data.current_issue_or_cost || "No issue found";
+                document.getElementById('res-recommendation').textContent = data.actionable_recommendation || "No recommendation";
+                document.getElementById('res-savings').textContent = data.estimated_savings || "N/A";
+
+                // Show the dashboard and scroll down smoothly
+                resultsDashboard.classList.remove('hidden');
+                resultsDashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (error) {
+                console.error("Error during audit:", error);
+                alert("Failed to connect to the AI Backend. Ensure the Flask server is running and CORS is enabled.");
+            } finally {
+                // Restore button state
+                btnText.innerText = originalText;
+                btnIcon.classList.add('ph-scan');
+                btnIcon.classList.remove('ph-spinner', 'animate-spin');
+                submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
